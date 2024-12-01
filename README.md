@@ -1,6 +1,6 @@
 # 📝 TODO LIST
 
-Aplicativo Android desenvolvido com **Kotlin** e as melhores práticas do mercado. Este projeto foi pensado para ser simples, eficiente e escalável, utilizando a moderna arquitetura **MVVM** e ferramentas poderosas do ecossistema Android. 
+Este aplicativo Android está sendo desenvolvido como parte de um projeto pessoal para aprimorar e atualizar meu conhecimento sobre desenvolvimento Android. O objetivo é criar uma aplicação simples, eficiente e escalável, utilizando as melhores práticas do mercado e ferramentas modernas do ecossistema Android.
 
 ## 🚀 Tecnologias e Ferramentas Utilizadas
 
@@ -11,4 +11,5 @@ Aplicativo Android desenvolvido com **Kotlin** e as melhores práticas do mercad
 - **Hilt**: Injeção de dependência simplificada e poderosa.
 - **MVVM (Model-View-ViewModel)**: Arquitetura que separa responsabilidades e facilita o gerenciamento de estado.
 
----
+
+Este projeto é uma oportunidade para explorar as mais recentes inovações no desenvolvimento Android, com foco em criar uma base sólida para aplicações modernas e escaláveis.

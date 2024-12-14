@@ -7,13 +7,21 @@ import kotlinx.coroutines.flow.map
 class TodoRepositoryImpl(
     private val dao: TodoDao
 ) : TodoRepository {
-    override suspend fun insert(title: String, description: String?) {
-        val entity = TodoEntity(
+    override suspend fun insert(title: String, description: String?, id: Long?) {
+        // SE tiver id eu dou um copy pra apenas mudar o title e description
+        val entity = id?.let {
+            dao.getBy(it)?.copy(
+                title = title,
+                description = description
+            )
+            // SENAO eu crio um novo objeto
+        } ?: TodoEntity(
             title = title,
             description = description,
             isCompleted = false
         )
 
+        // no dao.insert eu vou ter uma logica pra verificar se o ID ja existe faz o replace com os novos dados
         dao.insert(entity)
     }
 

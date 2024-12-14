@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class AddEditViewModel(
+    private val id: Long? = null,
     private val repository: TodoRepository,
 ) : ViewModel() {
 
@@ -26,6 +27,19 @@ class AddEditViewModel(
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
+
+    // quando esse viewModel for criado
+    init {
+        id?.let { todoId ->
+            viewModelScope.launch {
+                // repository.getBy pode vir null se nao achar um toodo com esse id no banco, no meu contexto isso nao deve acontecer mas pro codigo nao ficar com erro tive que por o ?.let
+                repository.getBy(todoId)?.let { todo ->
+                    title = todo.title
+                    description = todo.description
+                }
+            }
+        }
+    }
 
     fun onEvent(event: AddEditEvent) {
         when (event) {
@@ -51,7 +65,7 @@ class AddEditViewModel(
                 // retorno pra nao deixar executar o repository.insert (pra nao salvar no banco)
                 return@launch
             }
-            repository.insert(title, description)
+            repository.insert(title, description, id)
             _uiEvent.send(UiEvent.NavigateBack)
         }
 

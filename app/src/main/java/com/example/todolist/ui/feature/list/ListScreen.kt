@@ -42,6 +42,7 @@ import com.example.todolist.domain.todo2
 import com.example.todolist.domain.todo3
 import com.example.todolist.navigation.AddEditRoute
 import com.example.todolist.ui.UiEvent
+import com.example.todolist.ui.components.EmptyState
 import com.example.todolist.ui.components.TodoItem
 import com.example.todolist.ui.theme.TodoListTheme
 
@@ -122,22 +123,8 @@ fun ListContent(
             SnackbarHost(hostState = snackbarHostState)
         }
     ) { padding ->
-
         if (todos.isEmpty()) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .consumeWindowInsets(padding)
-                    .padding(padding),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text(
-                    text = "Todo List is empty",
-                    style = MaterialTheme.typography.headlineLarge,
-                )
-            }
-
+            EmptyState("Todo List is empty")
         } else {
             LazyColumn(
 

@@ -92,11 +92,8 @@ fun AddEditContent(
     Scaffold(
         topBar = {
             TopAppBar(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 0.dp), // Remove qualquer espaçamento lateral
                 title = {
-                    Text("Teste", color = Color.White)
+                    Text("Create ou Update", color = Color.White)
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {

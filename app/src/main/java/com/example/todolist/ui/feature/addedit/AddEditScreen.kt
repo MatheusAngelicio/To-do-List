@@ -74,6 +74,7 @@ fun AddEditScreen(
     AddEditContent(
         title = title,
         description = description,
+        topBarTitle = id?.let { "Update" } ?: "Create",
         snackbarHostState = snackbarHostState,
         onEvent = viewModel::onEvent,
         onBack = viewModel::onBack
@@ -85,6 +86,7 @@ fun AddEditScreen(
 fun AddEditContent(
     title: String,
     description: String?,
+    topBarTitle : String,
     snackbarHostState: SnackbarHostState,
     onEvent: (AddEditEvent) -> Unit,
     onBack: () -> Unit,
@@ -93,7 +95,7 @@ fun AddEditContent(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Create ou Update", color = Color.White)
+                    Text(topBarTitle, color = Color.White)
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
@@ -173,6 +175,7 @@ private fun AddEditContentPreview() {
         AddEditContent(
             title = "",
             description = null,
+            topBarTitle = "Create",
             snackbarHostState = SnackbarHostState(),
             onEvent = {},
             onBack = {}

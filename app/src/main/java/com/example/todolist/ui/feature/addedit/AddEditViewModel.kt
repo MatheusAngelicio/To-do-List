@@ -66,8 +66,13 @@ class AddEditViewModel(
                 return@launch
             }
             repository.insert(title, description, id)
+            onBack()
+        }
+    }
+
+    fun onBack() {
+        viewModelScope.launch {
             _uiEvent.send(UiEvent.NavigateBack)
         }
-
     }
 }

@@ -19,12 +19,8 @@ import com.example.todolist.ui.theme.TodoListTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
-            Box (
-                // uma forma de garantir que o app ira contruir as telas de uma forma segura, sem dar overflow na statusbar, na systembar etc
-                modifier = Modifier.safeContentPadding()
-            ){
+            Box {
                 TodoListTheme {
                     TodoNavHost()
                 }

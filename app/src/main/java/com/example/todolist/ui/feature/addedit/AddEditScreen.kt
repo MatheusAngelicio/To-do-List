@@ -7,24 +7,29 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.todolist.data.TodoDatabaseProvider
-import com.example.todolist.data.TodoRepository
 import com.example.todolist.data.TodoRepositoryImpl
 import com.example.todolist.ui.UiEvent
 import com.example.todolist.ui.theme.TodoListTheme
@@ -70,18 +75,44 @@ fun AddEditScreen(
         title = title,
         description = description,
         snackbarHostState = snackbarHostState,
-        onEvent = viewModel::onEvent
+        onEvent = viewModel::onEvent,
+        onBack = viewModel::onBack
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditContent(
     title: String,
     description: String?,
     snackbarHostState: SnackbarHostState,
-    onEvent: (AddEditEvent) -> Unit
+    onEvent: (AddEditEvent) -> Unit,
+    onBack: () -> Unit,
 ) {
     Scaffold(
+        topBar = {
+            TopAppBar(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 0.dp), // Remove qualquer espaçamento lateral
+                title = {
+                    Text("Teste", color = Color.White)
+                },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color.White
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Blue
+                )
+            )
+        },
+
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 onEvent(AddEditEvent.Save)
@@ -99,6 +130,9 @@ fun AddEditContent(
         Column(
             modifier = Modifier
                 .consumeWindowInsets(padding)
+                // Aplica o padding fornecido pelo Scaffold (nesse caso uso para que a topbar nao fique na frente do conteudo da tela)
+                .padding(padding)
+                // aqui um padding adicional para tela
                 .padding(16.dp)
         ) {
             OutlinedTextField(
@@ -144,6 +178,7 @@ private fun AddEditContentPreview() {
             description = null,
             snackbarHostState = SnackbarHostState(),
             onEvent = {},
+            onBack = {}
         )
     }
 }
